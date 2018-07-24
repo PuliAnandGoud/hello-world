@@ -1,0 +1,46 @@
+cost <- function(x,y , params)
+       {
+          ycap = params[1] + (params[2]*x)
+          diff = y - ycap
+          dsq = diff^2
+          err = sum(dsq)/2*length(x)
+          err
+       }
+-
+----------------------------------
+ pcost =0
+ lcost =0
+ 
+ 
+grad.descent <- function(x, maxit){
+   # theta <- matrix(c(0, 0), nrow=1) 
+   params  = coefficients(lm(y[,1] ~ x[,2]))
+   theta = matrix(params,nrow=1)
+ # Initialize the parameters
+ 
+    alpha = .05 # set learning rate
+
+     pcost=lcost
+     n = 1
+    for (i in 1:maxit) {
+      
+      theta <- theta - alpha  * grad(x, y, theta) 
+      n = n + 1  
+      if (i%%100==0)
+      {
+           lcost = cost(x,y,theta)
+          
+     
+          convergence =abs( lcost-pcost)
+          pcost=lcost
+         if (convergence<=0.0001) break
+      }
+    
+    }
+ return(c(theta[1],theta[2],n))
+
+}
+
+> grad.descent(x, 40000)
+[1]   0.2   2.6 201.0
+> 
