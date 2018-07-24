@@ -1,3 +1,4 @@
+# R code for Gradient Descent  method
 cost <- function(x,y , params)
        {
           ycap = params[1] + (params[2]*x)
@@ -6,8 +7,7 @@ cost <- function(x,y , params)
           err = sum(dsq)/2*length(x)
           err
        }
--
-----------------------------------
+
  pcost =0
  lcost =0
  
