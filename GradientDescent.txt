@@ -8,8 +8,8 @@ cost <- function(x,y , params)
           err
        }
 
- pcost =0
- lcost =0
+pcost =0
+lcost =0
  
  
 grad.descent <- function(x, maxit){
@@ -41,6 +41,5 @@ grad.descent <- function(x, maxit){
 
 }
 
-> grad.descent(x, 40000)
-[1]   0.2   2.6 201.0
-> 
+grad.descent(x, 40000)
+# out put [1]   0.2   2.6 201.0
