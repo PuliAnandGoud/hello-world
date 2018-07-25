@@ -1,3 +1,5 @@
+# edited in name1 repository
+# updated in master
 # R code for Gradient Descent  method
 # 123
 
