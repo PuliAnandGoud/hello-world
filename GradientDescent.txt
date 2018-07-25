@@ -1,5 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # updated in nameA, name1 and master repository
+=======
+# edited in name1 repository
+# updated in master
+# R code for Gradient Descent  method
+# 123
+
+>>>>>>> 3140f62... notes added in name1 repository
 cost <- function(x,y , params)
        {
           ycap = params[1] + (params[2]*x)
