@@ -1,0 +1,366 @@
+GitHub Commands
+
+
+Git is a distributed version control system
+Unlike SVN , GIT takes a snapshot of changes in its local repository
+Even if the central repository goes down, a copy can be retrieved from the local
+
+Terminology: 
+Repository : snapshot 
+Remote: 
+Commit: 
+Reference: 
+Branch: 
+Head: 
+Working Directory: 
+Index: Proposal for commit
+Merge: 
+
+
+# getting GUI command line
+$ gid gui
+---------------------------
+1. creating repository
+$ git init project
+
+cd project
+ls
+# in windows
+$cmd //c "tree /F"
+# in linux
+tree .git
+
+note: other way to create without .git folder. helpful in collaboration 
+$ git init --bare project1
+
+---------------------------
+2. Cloning Project
+$ git clone https://github.com/github/hubot-scripts.git
+
+# get log file of commit  
+$git log --oneline --graph
+
+---------------------------
+3. Checking Issues
+
+# adding file
+$ git add <fileName>
+
+$ git status
+
+Note: getting more details
+$ git status -sb
+
+---------------------------
+4. Basic Commit
+
+# get the difference between the local and stage
+$git diff
+
+# Shows file differences between staging and working directory
+$ git diff --staged
+
+$ git commit
+
+$ git commit -m "[descriptive message]"
+Records file snapshots permanently in version history
+
+#adding some message before committing 
+$ git commit -av
+
+# getting help
+$ man git-commit
+
+Add and Commit Explained: 
+Git add command will add the changes and get them ready for the next staging
+Git commit will commit the changes
+
+
+---------------------------
+5. Advanced Committing
+
+# committing part of changes
+$ git add -patch
+
+$ git add -v
+
+---------------------------
+6. Basic GIT Commands : 
+git init is used for creating an empty repository or for re-initializing an existing repository
+git status displays the current status of the staging area and the working directory
+git add prepares the new and existing files for staging . It adds all the new and existing file/directories to the staging area
+git commit will take a snapshot and record all the changes into the repository
+
+
+
+******************************
+Work With Remote Repositories.
+******************************
+---------------------------
+1. GIT Hosting: 
+Type of Hosting
+a) SSH Hosting
+b) Internet Hosting
+c) On-Premises Hosting
+
+---------------------------
+2. Remote Repositories
+origin is the remote hosting url
+
+$git remote
+
+# full details of remote including urls
+$git remote -v
+
+$git remote add name url
+
+---------------------------
+3. Fetching and Pulling
+
+# just fetching
+$ git fetch
+
+# merging with only our modification
+$git merge origin/master
+
+# getting and merging our code with other's
+$ git pull
+# linear pull command
+$ git pull --rebase
+
+
+---------------------------
+4. Pushing
+$git push
+
+$ git push origin hotfix
+
+# which branch you want to push
+$ git push origin hotfix -u
+
+$git checkout master
+
+Note: Best practice is to pull before pushing to avoid mismatch in the code made by others
+
+
+******************************  ******************************
+Branching in Distributed Version Control
+******************************  ******************************
+1. Introduction to Branching
+
+# creating branch
+$ git branch nameA
+# switching to new created branch
+$ git checkout nameA
+
+#switching back to master
+$ git checkout master
+
+#Combines the specified branch’s history into the current branch
+$ git merge [branch]
+
+# Deletes the specified branch
+$ git branch -d [branch-name]
+
+---------------------------
+2. Merging Branching
+
+best practice
+1. always merge main line changes to local branch
+$ git checkout nameA
+$ git merge master #kind of commit
+
+2. do changes to branch, come back to master and checkout new branch 
+$ git checkout master
+$ git merge nameA 
+
+
+---------------------------
+3. Branching Workflows
+
+types of wf
+a. top of trunk (only one branch)
+b. master and topic (1+N branches)
+c. progressive stability (2+N branches)
+
+Variations and Mixins 
+a. release branch 
+b. hot fix branch
+
+---------------------------
+4. Branch Management
+# to check the number of branches in repository
+$ git branch
+
+# verbos
+$ git branch -v
+
+# all the branches
+$ git branch -a
+
+# get merged and not merged branches
+git branch --no-merged
+git branch --merged
+
+---------------------------
+5. Tip on Branching
+To see the difference between two branches (master branch and test branch), you can execute the below command
+$ git diff master-branch-name test-branch-name
+
+******************************  ******************************
+Collaboration Basics
+******************************  ******************************
+we will understand some basics of collaboration how to manage Merge Conflicts.
+
+1. Collaboration Basics
+Commit message etiquette
+	Provide meaningful and short message 
+history etiquette
+	Do not overwrite history that other people already seen
+
+---------------------------
+2. Resolving Merge Conflicts
+
+$ git show master
+
+Imp Note: if there is conflict, it shows the message, then use $git status. 
+then update the file shows in conflicts by $vi <file_name>
+
+Example: ------------- Start -------
+<<<<<<< HEAD
+# updated in nameA repository
+=======
+# edited in name1 repository
+# updated in master
+>>>>>>> name1
+# R code for Gradient Descent  method
+Example: ------------- End -------
+
+
+******************************  ******************************
+Rebase
+******************************  ******************************
+Now let us understand a very important aspect of Git which is concept of rebase with some examples.
+
+1. rebase allow us to commit repository without multimple commit commands
+
+$ git cherry-pick 3140f62
+
+# to get specific commit details
+$ git show 3140f62
+
+# to rebase to master 
+$ git rebase master
+	
+---------------------------
+2. Resolving Rebase Conflicts
+
+if you find any conflict, modify the file and add (using $git add <file_name>)
+$git rebase --continue 
+
+---------------------------
+3. Rebase Tip
+
+The merge command will create a new commit when merging two branches.
+
+The rebase command will apply the commits from one branch to another.
+
+
+******************************  ******************************
+History and Configuration
+******************************  ******************************
+In this module we will learn how to view history and and some tips on managing files in GIT
+1. 
+
+$git log
+$git log --oneline --graph
+
+$git log --oneline --graph --decorate
+
+$git log --oneline --graph --decorate --all
+
+# to get specific commit details
+$ git show 3140f62
+
+# to view all logs in log-viewer tool
+$gitk --all
+
+---------------------------
+2. Emergency Tip
+$git commit
+$git push
+
+---------------------------
+3. Renaming and Deleting Files
+
+#renaming files
+$git mv file1 file2
+
+# deleting file
+$ git rm file
+---------------------------
+4. Ignoring Files
+
+# all the files which you want to ignore in check-in 
+$vi .gitignore
+
+$ cat .git/info/exclude
+
+
+---------------------------
+
+5. Git - Common Issues
+Tips to deal with merge conflicts
+
+Use git mergetool which gives a handy interface for solving merge conflicts
+Use git config merge.conflictstyle diff3 (To get a better sense of what changed on each branch)
+Use git log --merge -p <name of file> (This helps to ignore diff hunks that clearly are not a factor in your current conflict)
+Verify your changes with automated tools
+Plan ahead and communicate with co-workers
+If you're unsure of a merge, don't force it
+
+How to restore a deleted file ?
+
+First find the commit when the file last existed: git rev-list -n 1 HEAD -- filename
+Then checkout that file git checkout deletingcommitid^ -- filename
+How to correct a commit message ?
+
+If the commit hasn’t been pushed, you can do the following, which will allow you to edit the message on the most recent commit git commit --amend
+
+******************************  ******************************
+Course Summary
+******************************  ******************************
+
+In this course, we have learnt distributed version control system (GIT). We have understood the following concepts
+
+Basic Commands to add and commit files
+Pushing and Pulling from Remote Repo
+Fixing merge conflits
+Creating Branches
+Concept of Rebase
+Viewing commit history and making changes to configuration
+
+
+******************************  ******************************
+Other References
+******************************  ******************************
+
+				$git add				  $git commit					$git push
+un-staged file ------------> staged file ------------> local repository ------------> remote repository
+							
+			<-------------------------------------------------------------------------<
+											$git pull / $git clone
+
+this:
+Exam Tips: 
+Very useful when working with Github and you just merged a PR then usually you also delete the branch on the remote immediately after. 
+This does not however delete the branch from your local repository and over time it can get messy. 
+With this simple command you delete all local branches which were deleted on the server. 
+If your remote is called origin then just type enter it like so::
+
+$ git remote prune origin
+
+Deleting remote branches in Git
+To delete a remote branch, we do not use the "git branch" command - but instead "git push" with the "--delete" flag:
+
+$ git push origin --delete feature/login
