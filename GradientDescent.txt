@@ -1,7 +1,7 @@
 # updated in nameA repository
 # R code for Gradient Descent  method
 # 123
-
+print("welcome")
 cost <- function(x,y , params)
        {
           ycap = params[1] + (params[2]*x)
