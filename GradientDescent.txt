@@ -1,6 +1,5 @@
+<<<<<<< HEAD
 # updated in nameA, name1 and master repository
-# R code for Gradient Descent  method
-print("welcome master")
 cost <- function(x,y , params)
        {
           ycap = params[1] + (params[2]*x)
