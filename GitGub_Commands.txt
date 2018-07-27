@@ -1,0 +1,650 @@
+GitHub Commands
+
+
+Git is a distributed version control system
+Unlike SVN , GIT takes a snapshot of changes in its local repository
+Even if the central repository goes down, a copy can be retrieved from the local
+
+Terminology: 
+Repository : snapshot 
+Remote: 
+Commit: 
+Reference: 
+Branch: 
+Head: 
+Working Directory: 
+Index: Proposal for commit
+Merge: 
+
+
+# getting GUI command line
+$ gid gui
+---------------------------
+1. creating repository
+$ git init project
+
+cd project
+ls
+# in windows
+$cmd //c "tree /F"
+# in linux
+tree .git
+
+note: other way to create without .git folder. helpful in collaboration 
+$ git init --bare project1
+
+---------------------------
+2. Cloning Project
+$ git clone https://github.com/github/hubot-scripts.git
+
+# get log file of commit  
+$git log --oneline --graph
+
+---------------------------
+3. Checking Issues
+
+# adding file
+$ git add <fileName>
+
+$ git status
+
+Note: getting more details
+$ git status -sb
+
+---------------------------
+4. Basic Commit
+
+# get the difference between the local and stage
+$git diff
+
+# Shows file differences between staging and working directory
+$ git diff --staged
+
+$ git commit
+
+$ git commit -m "[descriptive message]"
+Records file snapshots permanently in version history
+
+#adding some message before committing 
+$ git commit -av
+
+# getting help
+$ man git-commit
+
+Add and Commit Explained: 
+Git add command will add the changes and get them ready for the next staging
+Git commit will commit the changes
+
+
+---------------------------
+5. Advanced Committing
+
+# committing part of changes
+$ git add -patch
+
+$ git add -v
+
+---------------------------
+6. Basic GIT Commands : 
+git init is used for creating an empty repository or for re-initializing an existing repository
+git status displays the current status of the staging area and the working directory
+git add prepares the new and existing files for staging . It adds all the new and existing file/directories to the staging area
+git commit will take a snapshot and record all the changes into the repository
+
+
+
+******************************
+Work With Remote Repositories.
+******************************
+---------------------------
+1. GIT Hosting: 
+Type of Hosting
+a) SSH Hosting
+b) Internet Hosting
+c) On-Premises Hosting
+
+---------------------------
+2. Remote Repositories
+origin is the remote hosting url
+
+$git remote
+
+# full details of remote including urls
+$git remote -v
+
+$git remote add name url
+
+---------------------------
+3. Fetching and Pulling
+
+# just fetching
+$ git fetch
+
+# merging with only our modification
+$git merge origin/master
+
+# getting and merging our code with other's
+$ git pull
+# linear pull command
+$ git pull --rebase
+
+
+---------------------------
+4. Pushing
+$git push
+
+$ git push origin hotfix
+
+# which branch you want to push
+$ git push origin hotfix -u
+
+$git checkout master
+
+Note: Best practice is to pull before pushing to avoid mismatch in the code made by others
+
+
+******************************  ******************************
+Branching in Distributed Version Control
+******************************  ******************************
+1. Introduction to Branching
+
+# creating branch
+$ git branch nameA
+# switching to new created branch
+$ git checkout nameA
+
+#switching back to master
+$ git checkout master
+
+#Combines the specified branch’s history into the current branch
+$ git merge [branch]
+
+# Deletes the specified branch
+$ git branch -d [branch-name]
+
+---------------------------
+2. Merging Branching
+
+best practice
+1. always merge main line changes to local branch
+$ git checkout nameA
+$ git merge master #kind of commit
+
+2. do changes to branch, come back to master and checkout new branch 
+$ git checkout master
+$ git merge nameA 
+
+
+---------------------------
+3. Branching Workflows
+
+types of wf
+a. top of trunk (only one branch)
+b. master and topic (1+N branches)
+c. progressive stability (2+N branches)
+
+Variations and Mixins 
+a. release branch 
+b. hot fix branch
+
+---------------------------
+4. Branch Management
+# to check the number of branches in repository
+$ git branch
+
+# verbos
+$ git branch -v
+
+# all the branches
+$ git branch -a
+
+# get merged and not merged branches
+git branch --no-merged
+git branch --merged
+
+---------------------------
+5. Tip on Branching
+To see the difference between two branches (master branch and test branch), you can execute the below command
+$ git diff master-branch-name test-branch-name
+
+******************************  ******************************
+Collaboration Basics
+******************************  ******************************
+we will understand some basics of collaboration how to manage Merge Conflicts.
+
+1. Collaboration Basics
+Commit message etiquette
+	Provide meaningful and short message 
+history etiquette
+	Do not overwrite history that other people already seen
+
+---------------------------
+2. Resolving Merge Conflicts
+
+$ git show master
+
+Imp Note: if there is conflict, it shows the message, then use $git status. 
+then update the file shows in conflicts by $vi <file_name>
+
+Example: ------------- Start -------
+<<<<<<< HEAD
+# updated in nameA repository
+=======
+# edited in name1 repository
+# updated in master
+>>>>>>> name1
+# R code for Gradient Descent  method
+Example: ------------- End -------
+
+
+******************************  ******************************
+Rebase
+******************************  ******************************
+Now let us understand a very important aspect of Git which is concept of rebase with some examples.
+
+1. rebase allow us to commit repository without multimple commit commands
+
+$ git cherry-pick 3140f62
+
+# to get specific commit details
+$ git show 3140f62
+
+# to rebase to master 
+$ git rebase master
+	
+---------------------------
+2. Resolving Rebase Conflicts
+
+if you find any conflict, modify the file and add (using $git add <file_name>)
+$git rebase --continue 
+
+---------------------------
+3. Rebase Tip
+
+The merge command will create a new commit when merging two branches.
+
+The rebase command will apply the commits from one branch to another.
+
+
+******************************  ******************************
+History and Configuration
+******************************  ******************************
+In this module we will learn how to view history and and some tips on managing files in GIT
+1. 
+
+$git log
+$git log --oneline --graph
+
+$git log --oneline --graph --decorate
+
+$git log --oneline --graph --decorate --all
+
+# to get specific commit details
+$ git show 3140f62
+
+# to view all logs in log-viewer tool
+$ gitk --all
+
+---------------------------
+2. Emergency Tip
+$git commit
+$git push
+
+---------------------------
+3. Renaming and Deleting Files
+
+#renaming files
+$git mv file1 file2
+
+# deleting file
+$ git rm file
+---------------------------
+4. Ignoring Files
+
+# all the files which you want to ignore in check-in 
+$ vi .gitignore
+
+$ cat .git/info/exclude
+
+
+---------------------------
+
+5. Git - Common Issues
+Tips to deal with merge conflicts
+
+Use git mergetool which gives a handy interface for solving merge conflicts
+Use git config merge.conflictstyle diff3 (To get a better sense of what changed on each branch)
+Use git log --merge -p <name of file> (This helps to ignore diff hunks that clearly are not a factor in your current conflict)
+Verify your changes with automated tools
+Plan ahead and communicate with co-workers
+If you're unsure of a merge, don't force it
+
+How to restore a deleted file ?
+
+First find the commit when the file last existed: git rev-list -n 1 HEAD -- filename
+Then checkout that file git checkout deletingcommitid^ -- filename
+How to correct a commit message ?
+
+If the commit hasn’t been pushed, you can do the following, which will allow you to edit the message on the most recent commit git commit --amend
+
+******************************  ******************************
+Course Summary
+******************************  ******************************
+
+In this course, we have learnt distributed version control system (GIT). We have understood the following concepts
+
+Basic Commands to add and commit files
+Pushing and Pulling from Remote Repo
+Fixing merge conflits
+Creating Branches
+Concept of Rebase
+Viewing commit history and making changes to configuration
+
+
+******************************  ******************************
+Other References
+******************************  ******************************
+
+				$git add				  $git commit					$git push
+un-staged file ------------> staged file ------------> local repository ------------> remote repository
+							
+			<-------------------------------------------------------------------------<
+											$git pull / $git clone
+
+this:
+Exam Tips: 
+Very useful when working with Github and you just merged a PR then usually you also delete the branch on the remote immediately after. 
+This does not however delete the branch from your local repository and over time it can get messy. 
+With this simple command you delete all local branches which were deleted on the server. 
+If your remote is called origin then just type enter it like so::
+
+$ git remote prune origin
+
+Deleting remote branches in Git
+To delete a remote branch, we do not use the "git branch" command - but instead "git push" with the "--delete" flag:
+
+$ git push origin --delete feature/login
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Chapter 2 - More on Git
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+******************************  ******************************
+Git Stash
+******************************  ******************************
+
+1. Introduction
+
+Why stash ?
+You are in the middle of some important code change. Suddenly, you get a request to fix something urgent!
+
+---------------------------
+2. Learn Git Stash
+
+This video demonstrates how to use git stash to store local changes. 
+This is to handle scenarios where you are interrupted before you are ready to commit.
+https://www.youtube.com/watch?v=KLEDKgMmbBI
+
+# to save changes locally
+$ git stash save "worked on Add function"
+
+# to view list of stash
+$ git stash list
+
+output:
+stash@{0}: On add: worked on add function
+stash@{1}: WIP on master: a90e412 working on stash
+
+
+# applying back the changes
+$ git stash apply stash@{0}
+
+## comming to master barnch
+$ git checkout --.
+
+# apply latest stash (top stash eg:stash@{0}) 
+$ git stash pop
+
+# deelteing stash 
+$ git stash drop stash@{0}
+
+# if you don
+$git stash clear
+
+$ git stash apply --index
+
+---------------------------
+3. Stash Tips
+Stashes are not transferred to the server when you push
+By default, git will not stash changes made to untracked or ignored files
+Adding the -u option (or --include-untracked) tells git stash to stash your untracked files
+
+******************************  ******************************
+Git Log
+******************************  ******************************
+1. Why Git Log ?
+As a developer, you have all the history of your commits. How would you view them in a systematic way?
+You may want to alter the output and customize it. Let us see how.
+
+---------------------------
+2. Learn Git Log
+This video talks about Git Log . It covers various options available for developers. 
+It also gives tips on customizing the output , when one uses the Git Log command.
+
+# get last three commits
+$git log --oneline -3
+
+# get from date
+$ git log --since = "2018-07-22"
+$ git log --until = "2018-07-22"
+$ git log --since = "2 weeks ago"
+
+# by the author 
+$ git log --author='PuliAnandGoud"
+
+# by hash from to to
+$ git log 76g76ht7..76g76ht9
+ 
+
+$ git log --format="short"
+$ git log --graph -all -decorate
+
+Tips on Git Log
+Gives you the power to pull out exactly what you need from your project history
+is often used in conjunction with other git commands
+
+Refer: https://www.atlassian.com/git/tutorials/git-log
+
+
+******************************  ******************************
+Good Commit Message
+******************************  ******************************
+1. Importance of writing a good commit message
+Writing a good message is a very important aspect while performing commit process. 
+Good commit messages serve at least three important purposes:
+
+Speed up the reviewing process
+Help the developer write a good release note
+Help the future maintenance team to track reasons for changes/addition of specific features
+Swipe to learn more...
+
+---------------------------
+2. 
+good commit message
+descriptive and specific
+short, less than 50 char
+ex: 'contact us url on the home page now redirects to google'
+
+
+******************************  ******************************
+Commit Amend
+******************************  ******************************
+1. 
+
+While making your commit in a hurry , you forgot to type a commit message.
+
+How will you rectify that mistake ? 
+
+---------------------------
+2. Learn how to Commit Amend
+
+# wrong commit message
+$ git commit -a -m "incorrect commit message"
+$ git log -1
+
+# amedning commit message
+$ git commit --amend -m "correct commit message"
+
+---------------------------
+3. Tips on Commit Amend
+
+git commit --amend command is a convenient way to fix up the most recent commit
+It lets you combine staged changes with the previous commit instead of committing it as a new snapshot
+It can also be used to simply edit the previous commit message, without changing its snapshot
+
+
+******************************  ******************************
+Reset Head
+******************************  ******************************
+1. Reset Head Overview
+In this section you will learn the git reset command and its features in detail
+** It Reset current HEAD to the specified state
+
+---------------------------
+2. Learn Reset Head
+Git reset is the command that allows you to discard or revise commit history. 
+Whether you're undoing some changes or re-crafting your commits , git reset is the appropriate command. 
+We'll also take a look at several of reset's command line options and examine how git checkout performs similar functions.
+
+Mixed, soft and hard
+--mixed
+This is the default operating mode. The ref pointers are updated. 
+The Staging Index is reset to the state of the specified commit. 
+Any changes that have been undone from the Staging Index are moved to the Working Directory. 
+
+# Mixed: put all staging area commits to current working directory
+git reset HEAD
+
+--soft
+When the --soft argument is passed, the ref pointers are updated and the reset stops there. 
+The Staging Index and the Working Directory are left untouched. 
+# Soft: reset till last 5 commits
+git reset --soft HEAD~5
+
+--hard
+This is the most direct, DANGEROUS, and frequently used option. 
+When passed --hard The Commit History ref pointers are updated to the specified commit. 
+Then, the Staging Index and Working Directory are reset to match that of the specified commit. 
+Any previously pending changes to the Staging Index and the Working Directory gets reset to match the state of the Commit Tree. 
+This means any pending work that was hanging out in the Staging Index and Working Directory will be lost.
+
+# Hard: thorough them out completely
+git reset --hard HEAD~3
+
+
+---------------------------
+3. Tips on Reset Head
+git reset is a way to clean up a repository by un-staging changes or un-committing a series of snapshots and re-building them from scratch
+The --hard flag comes in handy when an experiment has gone horribly wrong and you need afresh
+
+
+******************************  ******************************
+Cherry Pick
+******************************  ******************************
+1. 
+When you are working with a team of developers on a medium to large sized project, managing the changes between 
+a number of git branches can become a complex task. 
+Sometimes you don't want to merge a whole branch into another, and only need to pick one or two specific commits. 
+This process is called 'cherry picking'.
+
+
+Example:
+$ git checkout master
+
+Now we can cherry pick from new-features branch:
+$git cherry-pick d467740
+
+This will cherry pick the commit with hash d467740 and add it as a new commit on the master branch. 
+Note: it will have a new (and different) commit ID in the master branch
+
+# If you want to cherry pick more than one commit in one go, you can add their commit IDs separated by a space:
+
+$ git cherry-pick d467740 de906d4
+
+
+---------------------------
+2. git cherry-pick --abort
+
+
+******************************  ******************************
+Update Ref
+******************************  ******************************
+
+Why use update ref ?
+git update-ref command helps move a branch pointer to different commit without checkout
+
+Update ref tips
+With git update-ref and git symbolic-ref you can do whatever you want, but please don't
+Predictability of a thought process is good and you should not ruin it by being overly creative, unless you have a good reason to do so
+
+
+******************************  ******************************
+Ref Log
+******************************  ******************************
+
+You know that git can track all revisions that you make to your software . But can git track all versions of your revisions ? You will learn that in this section...
+
+Git keeps track of your revisions to your code, but what if you need to keep track of the work Git is doing? Reflog makes this extremely simple. 
+It provides a recent history of activity including commits, merges, resets, and rebases, and it lets you roll back or forward to any point in that history with ease. 
+It empowers you to make frequent commits as well as undo (or redo) just about anything.
+
+$git reflog
+
+git reflog stash
+
+gitk --all `git reflog | cut -c1-7`&
+
+
+
+Tips on RefLog
+It's important to note that the reflog provides a safety net, only if changes have been committed. 
+It tracks movements in your local repository.
+
+
+
+******************************  ******************************
+Git Bisect
+******************************  ******************************
+This command is to identify any bad code commit in the file.
+$ git bisect start
+$vim index.js
+$ git bisect bad
+$ git bisect next
+$vim index.js
+$ git bisect good
+$vim index.js
+$ git bisect bad
+
+Tips on Git Bisect
+The number of revisions you have between your good and bad commits will determine how long this process takes. 
+It will be quicker than individually checking out each commit.
+
+******************************  ******************************
+Common Git Issues
+******************************  ******************************
+Discard local file modifications
+Undo local commits
+Remove a file from git without removing it from your file system
+Edit a commit message
+Clean up local commits before pushing
+Reverting pushed commits
+Avoid repeated merge conflicts
+Find the commit that broke something after a merge
+Avoid common mistakes with git hooks
+
+
+
+
+
+
+
