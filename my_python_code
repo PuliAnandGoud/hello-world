@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar 27 12:03:45 2018
+
+@author: Anand Goud P
+"""
+
+class Person:
+    # object conating person details
+    def __init__(self, name, age, salary):
+        # method with neccessary details
+        self.name = name
+        self.age = age
+        self.salary = salary
+        print("Person object is created with Name: %s, Age: %s, salasry: %s" %( self.name, self.age, self.salary))
+    
+    def salRiase(self, percentage):
+        # method to get updated salary details
+        # return old and new salaries 
+        newSalary = self.salary + self.salary * (percentage/100)
+        return self.salary, newSalary
+    
+    
+if __name__ == "__main__":
+    # creating person object
+    first_person = Person("sridhar", 32, 10000)
+    old_sal, new_sal = first_person.salRiase(5)
+    print("Old salary %s and updated salary is: %s" % (old_sal, new_sal))
